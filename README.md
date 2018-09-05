@@ -29,6 +29,27 @@ DRAUGIEMPASE_SCOPES=[]
 DRAUGIEMPASE_REDIRECT=
 
 ```
+Need to modify RomaldyMinaya\Socialite\Http\Controllers\AuthController.php line ~50+
+
+```
+    /**
+     * Callback url where the user is redirected from the social provider
+     */
+    public function callback()
+    {
+        if ($this->provider == 'draugiem') {
+            if(!$this->request->has('dr_auth_code')) return $this->redirectToLoginPage();
+        } else {
+            if(!$this->request->has('code')) return $this->redirectToLoginPage();
+        }
+        //$user   = $this->users->findByEmailAndUpdateOrFindByUsernameOrCreate($this->getProviderUser(), $this->provider);
+        $user   = $this->users->findByUsernameOrCreate($this->getProviderUser(), $this->provider);
+
+        $this->auth->login($user, true);
+
+        return redirect($this->getSuccessUrl());
+    }
+```
 
 TODO:
 
@@ -38,3 +59,5 @@ Need to make it dynamic.
 ```
     public static $providers = ['google', 'facebook', 'github', 'draugiem'];
 ```
+
+
