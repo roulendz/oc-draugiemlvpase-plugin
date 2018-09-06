@@ -134,7 +134,8 @@ class Provider extends AbstractProvider implements ProviderInterface
             'nickname' => $user['nick'],
             'email' => $user['uid'].'@draugiem.lv',
             'emailHash' => $user['emailHash'],
-            'name' => $user['name'] . ' ' . $user['surname'],
+            'name' => $user['name'],
+            'surname' =>  $user['surname'],
             'avatar_original' => !empty($user['imgl']) ? $user['imgl'] : null,
         ]);
     }
