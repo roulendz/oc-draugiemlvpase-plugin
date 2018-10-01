@@ -1,18 +1,16 @@
 <?php
-namespace Logingrupa\draugiemlvpase;
+namespace Logingrupa\DraugiemlvPase;
 
 use System\Classes\PluginBase;
-use RomaldyMinaya\Socialite\Plugin as SocialitePluginModel;
 
 // use Illuminate\Foundation\AliasLoader;
 // use Laravel\Socialite\Contracts\Factory;
 
 /**
- * draugiemlvpase Plugin Information File
+ * DraugiemlvPase Plugin Information File
  */
 class Plugin extends PluginBase
 {
-
     /**
      * @var boolean Determine if this plugin should have elevated privileges.
      */
@@ -20,7 +18,8 @@ class Plugin extends PluginBase
     /**
      * @var array Plugin dependencies
      */
-    public $require = ['RainLab.User','October.Drivers', 'RomaldyMinaya.Socialite'];
+    public $require = ['RainLab.User', 'October.Drivers', 'RomaldyMinaya.Socialite'];
+
     /**
      * Returns information about this plugin.
      *
@@ -29,10 +28,10 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'Draugiem.lv Socialite Provider',
+            'name' => 'Draugiem.lv Socialite Provider',
             'description' => 'No description provided yet...',
-            'author'      => 'LOGIN GRUPA',
-            'icon'        => 'icon-leaf'
+            'author' => 'LOGIN GRUPA',
+            'icon' => 'icon-leaf'
         ];
     }
 
@@ -43,7 +42,6 @@ class Plugin extends PluginBase
      */
     public function register()
     {
-
         // $socialite = $this->app->make('Laravel\Socialite\Facades\Socialite');
         // $socialite->extend(
         //     'draugiemlv',
@@ -61,17 +59,16 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
         $socialite->extend(
             'draugiem',
             function ($app) use ($socialite) {
-                $config = \Config::get('logingrupa.draugiemlvpase::services.draugiem');
+                $config = \Config::get('Logingrupa.DraugiemlvPase::services.draugiem');
                 return $socialite->buildProvider(Provider::class, $config);
             }
         );
 
-        \Event::listen('logingrupa\draugiemlvpase\DraugiemExtendSocialite@handle', \SocialiteProviders\Manager\SocialiteWasCalled::class);
+        \Event::listen('Logingrupa\DraugiemlvPase\DraugiemExtendSocialite@handle', \SocialiteProviders\Manager\SocialiteWasCalled::class);
     }
 
     /**
@@ -98,8 +95,8 @@ class Plugin extends PluginBase
         return []; // Remove this line to activate
 
         return [
-            'logingrupa.draugiemlvpase.some_permission' => [
-                'tab' => 'draugiemlvpase',
+            'Logingrupa.DraugiemlvPase.some_permission' => [
+                'tab' => 'DraugiemlvPase',
                 'label' => 'Some permission'
             ],
         ];
@@ -115,15 +112,16 @@ class Plugin extends PluginBase
         return []; // Remove this line to activate
 
         return [
-            'draugiemlvpase' => [
-                'label'       => 'draugiemlvpase',
-                'url'         => Backend::url('logingrupa'),
-                'icon'        => 'icon-leaf',
-                'permissions' => ['logingrupa.draugiemlvpase.*'],
-                'order'       => 500,
+            'DraugiemlvPase' => [
+                'label' => 'DraugiemlvPase',
+                'url' => Backend::url('Logingrupa'),
+                'icon' => 'icon-leaf',
+                'permissions' => ['Logingrupa.DraugiemlvPase.*'],
+                'order' => 500,
             ],
         ];
     }
+
     public function registerMarkupTags()
     {
         return [
