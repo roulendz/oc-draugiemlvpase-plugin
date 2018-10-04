@@ -44,10 +44,10 @@ class Plugin extends PluginBase
     {
         // $socialite = $this->app->make('Laravel\Socialite\Facades\Socialite');
         // $socialite->extend(
-        //     'draugiemlv',
+        //     'draugiem',
         //     function ($app) use ($socialite) {
-        //         $config = $app['config']['services.draugiemlv'];
-        //         return $socialite->buildProvider(Logingrupa\Draugiemlvpase\Helpers\SocialiteDraugiemlvProvider::class, $config);
+        //         $config = \Config::get('Logingrupa.DraugiemlvPase::services.draugiem');
+        //         return $socialite->buildProvider(DraugiemlvProvider::class, $config);
         //     }
         // );
     }
@@ -59,12 +59,29 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        // $this->app->make('Laravel\Socialite\Contracts\Factory', function ($app) {
+        //     $socialiteManager = new SocialiteManager($app);
+
+        //     $socialiteManager->extend('draugiem', function () use ($socialiteManager) {
+        //         $config = \Config::get('Logingrupa.DraugiemlvPase::services.draugiem');
+
+        //         return $socialiteManager->buildProvider(
+        //             \Logingrupa\DraugiemlvPase\DraugiemlvProvider::class,
+        //             $config
+        //         );
+        //     });
+        //     return $socialiteManager;
+        // });
+
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
         $socialite->extend(
             'draugiem',
             function ($app) use ($socialite) {
-                $config = \Config::get('Logingrupa.DraugiemlvPase::services.draugiem');
-                return $socialite->buildProvider(Provider::class, $config);
+                $config = \Config::get('services.draugiem');
+                return $socialite->buildProvider(
+                    \Logingrupa\DraugiemlvPase\DraugiemlvProvider::class,
+                    $config
+                );
             }
         );
 
