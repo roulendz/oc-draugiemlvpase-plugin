@@ -1,5 +1,5 @@
 <?php
-namespace Logingrupa\draugiemlvpase;
+namespace Logingrupa\DraugiemlvPase;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
 
@@ -14,7 +14,7 @@ class DraugiemExtendSocialite
     {
         $socialiteWasCalled->extendSocialite(
             'draugiem',
-            __NAMESPACE__ . '\Provider'
+            __NAMESPACE__ . '\DraugiemlvProvider'
         );
     }
 }
